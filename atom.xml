@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>人依旧♀Blog</title>
+  <subtitle>Python Ruby Web</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yijiu.ren/"/>
+  <updated>2017-04-16T09:48:58.000Z</updated>
+  <id>http://yijiu.ren/</id>
+  
+  <author>
+    <name>人依旧</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript 学习笔记</title>
+    <link href="http://yijiu.ren/2017/04/15/JavaScript-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yijiu.ren/2017/04/15/JavaScript-学习笔记/</id>
+    <published>2017-04-15T09:58:24.000Z</published>
+    <updated>2017-04-16T09:48:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这个是自己在跟着<a href="http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000" target="_blank" rel="external">廖雪峰的JavaScript教程</a>学习时记录的一些笔记，这里整理一下，也算方便自己后面进行知识回顾。个人感觉这个教程作为入门了解一些专业名词和基础知识还是可以的，但是由于教程的内容包含的内容较为广，跨度较大，一些知识只是简单的叙述了一下，深入的理解和学习还是需要去查阅其他更详细的资料。</p>
+<a id="more"></a>
+<h4 id="数据类型和变量"><a href="#数据类型和变量" class="headerlink" title="数据类型和变量"></a>数据类型和变量</h4><ol>
+<li><p>“use strict”，在strict模式下运行的JavaScript代码，强制使用<code>var</code>申明变量，未使用<code>var</code>申明变量就使用的，将会导致运行错误；未声明可能导致成为全局变量，污染全局变量环境。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">ReferenceError</span>: xxx is not defined</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><ol>
+<li><p>ES6新增了一种模板字符串（若不支持，使用<code>+</code>连接字符串）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">'hello world'</span>;</div><div class="line"><span class="keyword">var</span> time = <span class="string">'2017-01-01'</span>;</div><div class="line"><span class="keyword">var</span> message = <span class="string">`<span class="subst">$&#123;name&#125;</span>, 今天是<span class="subst">$&#123;time&#125;</span>!`</span>;</div><div class="line">alert(message); <span class="comment">// hello world, 今天是2017-01-01!</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ol>
+<li>直接给<code>Array</code>的<code>length</code>赋值，可能会导致<code>Array</code>大小的改变</li>
+<li>通过索引赋值时，当索引超出数组大小时，同样会引起<code>Array</code>大小的改变</li>
+</ol>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><ol>
+<li>判断对象是否拥有某一属性，使用<code>in</code>操作符</li>
+<li>使用<code>in</code>判断某一属性是否存在时，属性不一定是对象本身的，可能是继承得到的</li>
+<li>判断一个属性是否是对象自身拥有的，而不是继承得到的，可以使用<code>hasOwnProperty()</code>方法</li>
+</ol>
+<h4 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h4><ol>
+<li>Javascript把<code>null</code>、<code>undefined</code>、<code>0</code>、<code>NaN</code>和空字符串<code>&#39;&#39;</code>视为<code>false</code>，其他值均为<code>true</code></li>
+</ol>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><ol>
+<li><code>for...in</code>对<code>Array</code>的循环得到的是<code>String</code>而不是<code>Number</code></li>
+</ol>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><ol>
+<li>JavaScript函数允许传入任意个数的参数而不影响调用</li>
+<li>关键字<code>arguments</code>只在函数内部起作用，可以获取到当前函数调用者传入的所有参数</li>
+</ol>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ol>
+<li><p>在一个方法内部，<code>this</code>是一个特殊变量，始终指向当前对象</p>
+</li>
+<li><p>单独调用一个函数，此时，高函数的<code>this</code>指向全局变量，也就是<code>window</code></p>
+</li>
+<li><p>使用apply()和call()对<code>this</code>的指向进行控制，防止产生错误</p>
+</li>
+<li><p>利用apply()动态的改变函数的行为</p>
+<p>假定我们想统计一下代码一共调用了多少次<code>parseInt()</code>，可以把所有的调用都找出来，然后手动加上<code>count += 1</code>，不过这样做太傻了。最佳方案是用我们自己的函数替换掉默认的<code>parseInt()</code>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"><span class="keyword">var</span> oldParseInt = <span class="built_in">parseInt</span>; <span class="comment">// 保存原函数</span></div><div class="line"></div><div class="line"><span class="built_in">window</span>.parseInt = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    count += <span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> oldParseInt.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>); <span class="comment">// 调用原函数</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 测试:</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>);</div><div class="line"><span class="built_in">parseInt</span>(<span class="string">'20'</span>);</div><div class="line"><span class="built_in">parseInt</span>(<span class="string">'30'</span>);</div><div class="line">count; <span class="comment">// 3</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"><span class="keyword">var</span> arr = [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>];</div><div class="line"><span class="keyword">var</span> r;</div><div class="line">r = arr.map(<span class="built_in">parseInt</span>);</div><div class="line"></div><div class="line"><span class="comment">// 结果返回为[1, NaN, NaN]</span></div></pre></td></tr></table></figure>
+<p>原因是在调用<code>arr.map(parseInt)</code>的时候，传给<code>map</code>的参数为三个：</p>
+<ul>
+<li>当前的值(currentValue)  <code>// 依次是&#39;1&#39;,&#39;2&#39;,&#39;3&#39;</code></li>
+<li>当前值的索引(currentIndex)  <code>// 依次是0，1，2</code></li>
+<li>当前的数组(currentArray) <code>// 都是[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]</code></li>
+</ul>
+<p>而每次调用parseInt函数时，函数接受两个参数，因此只传入了两个值(<code>currentValue, currentIndex</code>)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">parseInt</span>(<span class="string">'1'</span>, <span class="number">0</span>) <span class="comment">// 1，当第二个参数转换后为0或者NaN时，会被忽略</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">'2'</span>, <span class="number">1</span>) <span class="comment">// NaN</span></div><div class="line"><span class="built_in">parseInt</span>(<span class="string">'3'</span>, <span class="number">2</span>) <span class="comment">// NaN</span></div></pre></td></tr></table></figure>
+<p>所以有效的写法是<code>arr.map(function(x) { return parseInt(x)});</code></p>
+<h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h4><ol>
+<li><code>Array</code>的<code>sort()</code>方法默认把所有元素先转换成<code>String</code>后再进行排序</li>
+</ol>
+<h4 id="包装对象"><a href="#包装对象" class="headerlink" title="包装对象"></a>包装对象</h4><ol>
+<li><p>包装对象看上去和原来的值一样，但是他们的类型已经发生了改变，变成了<code>object</code>，并且使用<code>===</code>与原始值比较会返回<code>false</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">123</span>); <span class="comment">// 'object'</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">123</span>) === <span class="number">123</span>; <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>); <span class="comment">// 'object'</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">true</span>) === <span class="literal">true</span>; <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'str'</span>); <span class="comment">// 'object'</span></div><div class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'str'</span>) === <span class="string">'str'</span>; <span class="comment">// false</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h4><p>易犯的错误：<strong>箭头函数没有自己的<code>this</code></strong>，总是指向定义时所在的作用域的<code>this</code>值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = &#123;</div><div class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">bar</span>: <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo)</div><div class="line">&#125;</div><div class="line"></div><div class="line">a.bar()  <span class="comment">//undefined</span></div></pre></td></tr></table></figure>
+<p>上述代码中，箭头函数中的<code>this</code>并不是指向<code>a</code>这个对象的，<strong>使用的是词法作用域内的this</strong>；对象<code>a</code>并不能构建自身的作用域，不能够新建自己的<code>this</code>值，所以向上查找到达全局作用域，<code>this</code>就是指向全局作用域，而全局作用域不存在相应的属性值，因此为<code>undefined</code></p>
+<p>下述代码中，如果使用普通函数时，输出结果就是符合预期的，这是因为</p>
+<blockquote>
+<p>在函数运行时，this关键字并不会指向正在运行的函数本身，而是指向调用该函数的对象</p>
+</blockquote>
+<p>也就是<code>a.bar()</code>函数执行时作用域绑到了<code>a</code>对象，<code>this</code>就是指向了<code>a</code>对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = &#123;</div><div class="line">  <span class="attr">foo</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">bar</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo) &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">a.bar()  <span class="comment">// 1</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> c = a.bar;</div><div class="line">c(); <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<p>此时调用函数<code>bar</code>的是<code>window</code>对象，所以函数<code>bar</code>的<code>this</code>被指向了<code>window</code>，而<code>window</code>不存在<code>foo</code>属性，所以结果是<code>undefined</code></p>
+<h4 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h4><ol>
+<li>JavaScript的原型链和Java的Class的区别是，JavaScript没有<code>Class</code>的概念，所有的对象都是实例，所谓的<strong>继承关系不过是把一个对象的原型指向另外一个对象而已</strong>。</li>
+<li><code>prototype</code>是<strong>函数</strong>的一个属性(每个函数都有一个<code>prototype</code>属性)，这个属性是一个指针，指向一个对象。它是显示修改对象的原型的属性。</li>
+<li><code>__proto__</code>是一个对象拥有的内置属性，(<strong>请注意：<code>prototype</code>是函数的内置属性，<code>__proto__</code>是对象的内置属性</strong>)，是JS内部使用寻找原型链的属性。</li>
+</ol>
+<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><ol>
+<li><p>如果原型链很长，那么访问一个对象的属性就会因为花更多的时间查找而变慢，所以不要把原型链搞得太长</p>
+</li>
+<li><p>使用<code>new</code>，变成了一个构造函数，他绑定的<code>this</code>指向新创建的对象，并默认返回<code>this</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        alert(<span class="string">'Hello, '</span> + <span class="keyword">this</span>.name + <span class="string">'!'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> xiaoming = <span class="keyword">new</span> Student(<span class="string">'小明'</span>)；</div><div class="line">xiaoming.name; <span class="comment">// "小明"</span></div><div class="line">xiaoming.hello(); <span class="comment">// "Hello,小明!"</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> xiaohong = <span class="keyword">new</span> Student(<span class="string">"小红"</span>)；</div><div class="line">xiaohong.name; <span class="comment">// "小红"</span></div><div class="line"></div><div class="line"><span class="comment">// 注意这里</span></div><div class="line">xiaohong.hello; <span class="comment">// function Student/this.hello()</span></div><div class="line">xiaoming.hello; <span class="comment">// function Student/this.hello()</span></div><div class="line">xiaohong.hello === xiaoming.hello <span class="comment">// false</span></div></pre></td></tr></table></figure>
+<p>从上述代码可以看出，<code>xiaoming.hello</code>和<code>xiaohong.hello</code>都是函数，但是它们是不同的函数，虽然函数名称和代码是相同的！</p>
+<p>所以，当我们通过<code>new Student()</code>创建了较多对象时，每个对象都有一个自己的<code>hello</code>函数，这样子来说是比较耗费内存的，实际上只需要共享同一个函数就可以了，这样子可以节省资源。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Student.prototype.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="string">"Hello,"</span> + <span class="keyword">this</span>.name + <span class="string">"!"</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><em>为了区分普通函数和构造函数，按照约定，构造函数首字母应该大写，而普通函数首字母应该小写</em></p>
+</li>
+</ol>
+<h4 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h4><ol>
+<li>定义新的构造函数，并在内部用<code>call()</code>调用希望”继承”的构造函数，动态修改<code>this</code></li>
+<li>借助中间函数<code>F</code>实现原型链继承（可以通过封装的<code>inherits</code>函数完成）</li>
+<li>继续在新的构造函数上的原型上定义新的方法</li>
+</ol>
+<h4 id="浏览器对象"><a href="#浏览器对象" class="headerlink" title="浏览器对象"></a>浏览器对象</h4><h5 id="location"><a href="#location" class="headerlink" title="location"></a>location</h5><ol>
+<li><code>location</code>对象表示当前页面的URL信息</li>
+<li>加载一个新页面，可以调用<code>location.assign()</code></li>
+<li>重新加载当前页面，调用<code>location.reload()</code></li>
+</ol>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><h5 id="编写jQuery插件"><a href="#编写jQuery插件" class="headerlink" title="编写jQuery插件"></a>编写jQuery插件</h5><ol>
+<li>给<code>$.fn</code>绑定函数，实现插件的代码逻辑</li>
+<li>插件函数最后要<code>return this</code>，以实现链式调用</li>
+<li>插件函数要有默认值，绑定在<code>$.fn.&lt;pluginNane&gt;.defaults</code>上</li>
+<li>用户在调用时可以传入设定值以覆盖默认值</li>
+</ol>
+<h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><ol>
+<li>在Node环境中，一个.js文件就称为一个模块(module)</li>
+<li>提高了代码的可维护性</li>
+<li>模块的名字就是文件名（去掉<code>.js</code>的后缀）</li>
+<li>模块中对外输出变量，用<code>module.exports = variable;</code></li>
+<li>引入其他模块输出的对象，用<code>var foo = require(&#39;other_module&#39;);</code></li>
+</ol>
+<h4 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h4><ol>
+<li>流的特点是数据是有序的，而且必须是依次读取，或者依次写入</li>
+<li><code>pipe()</code>把一个文件流和另一个文件流串起来，这样子源文件的所有数据就自动写入到目标文件了</li>
+</ol>
+<h4 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h4><ol>
+<li><code>request</code>对象封装了HTTP请求，调用<code>request</code>对象的属性和方法就可以拿到所有的HTTP请求的信息</li>
+<li><code>response</code>对象封装了HTTP响应，操作<code>response</code>对象的方法，就可以把HTTP响应返回给浏览器</li>
+</ol>
+<h4 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h4><ol>
+<li>关注Model的变化，让MVVM框架取去自动更新DOM的状态</li>
+<li>单向绑定：把Model绑定到View，当我们使用JavaScript代码更新Model时，View会自动更新</li>
+<li>双向绑定： 当用户更新了View，Model的数据也会自动被更新</li>
+<li>让Model和DOM结构保持同步</li>
+<li>优势是前端逻辑复杂的页面，尤其是需要大量DOM操作的逻辑，利用MVVM可以极大地简化前端页面逻辑</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这个是自己在跟着&lt;a href=&quot;http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000&quot;&gt;廖雪峰的JavaScript教程&lt;/a&gt;学习时记录的一些笔记，这里整理一下，也算方便自己后面进行知识回顾。个人感觉这个教程作为入门了解一些专业名词和基础知识还是可以的，但是由于教程的内容包含的内容较为广，跨度较大，一些知识只是简单的叙述了一下，深入的理解和学习还是需要去查阅其他更详细的资料。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JavaScript 笔记" scheme="http://yijiu.ren/tags/JavaScript-%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node.js开发指南-学习笔记</title>
+    <link href="http://yijiu.ren/2017/04/05/node-js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yijiu.ren/2017/04/05/node-js开发指南-学习笔记/</id>
+    <published>2017-04-05T03:15:35.000Z</published>
+    <updated>2017-04-05T08:01:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前面在看<code>node.js开发指南</code>学习的时候，发现书中的版本比较旧了，一些代码在新的版本上存在一些不一致，会出现报错情况，下面是自己在跟随书本编写时遇到的一些问题及解决办法。<a id="more"></a></p>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>书中写的<code>npm app.js</code>，这个按照<code>express 4</code>的文档应该是<code>npm start</code>，另外在<code>package.json</code>中也有定义</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">"scripts"</span>: &#123;</div><div class="line">  <span class="string">"start"</span>: <span class="string">"node ./bin/www"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>所以也可以使用<code>node ./bin/www</code></p>
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><p>在<code>express 4</code>中<code>&lt;%- body %&gt;</code>这种模板直接使用会报错误，可以使用<code>&lt;%- include .... %&gt;</code>的方式，</p>
+<p>如果需要使用原来的方法，可以使用<code>express-ejs-layouts</code>这个包.</p>
+<h4 id="报错信息"><a href="#报错信息" class="headerlink" title="报错信息"></a>报错信息</h4><h6 id="1-TypeError"><a href="#1-TypeError" class="headerlink" title="1. TypeError"></a>1. TypeError</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">TypeError</span>: Cannot read property <span class="string">'Store'</span> <span class="keyword">of</span> <span class="literal">undefined</span></div></pre></td></tr></table></figure>
+<p>如果遇到这个报错信息，可以使用下面的代码方式解决</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> expressSession = <span class="built_in">require</span>(<span class="string">'express-session'</span>);</div><div class="line"><span class="keyword">var</span> MongoStore = <span class="built_in">require</span>(<span class="string">'connect-mongo'</span>)(expressSession);</div></pre></td></tr></table></figure>
+<h6 id="2-Mongo-Error"><a href="#2-Mongo-Error" class="headerlink" title="2. Mongo Error"></a>2. Mongo Error</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Error</span>: Connection strategy not found</div></pre></td></tr></table></figure>
+<p>书中<code>connect-mongo</code>使用的是旧的写法建立新的连接，改成下列方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">app.use(expressSession(&#123;</div><div class="line">    <span class="attr">secret</span>: setting.cookieSecret,</div><div class="line">    <span class="attr">store</span>: <span class="keyword">new</span> MongoStore(&#123;</div><div class="line">      <span class="attr">url</span>: <span class="string">'mongodb://localhost/microblog'</span></div><div class="line">    &#125;)</div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<h6 id="3-Form"><a href="#3-Form" class="headerlink" title="3. Form"></a>3. Form</h6><p>POST的表单数据为空，纠结了自己好久才发现，表单<code>input</code>的<code>name</code>属性没有填写，所以导致了<code>POST</code>过来的数据一直为空</p>
+<h6 id="4-Helpers"><a href="#4-Helpers" class="headerlink" title="4. Helpers"></a>4. Helpers</h6><p>新版本的Express已经不支持<code>app.dynamicHelpers</code>方法，需要使用<code>locals</code>来代替</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req, res, next</span>) </span>&#123;</div><div class="line">  res.locals.user = req.session.user;</div><div class="line">  <span class="keyword">var</span> err = req.flash(<span class="string">'error'</span>);</div><div class="line">  <span class="keyword">var</span> success = req.flash(<span class="string">"success"</span>);</div><div class="line"></div><div class="line">  res.locals.error = err.length ? err : <span class="literal">null</span>;</div><div class="line">  res.locals.success = success.length ? success : <span class="literal">null</span>;</div><div class="line">  next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>另外，需要将上述代码放在路由定义之前，不然在页面上中是无法获取到<code>user, error, success</code>参数的。</p>
+<h6 id="5-Mongo-Port"><a href="#5-Mongo-Port" class="headerlink" title="5. Mongo Port"></a>5. Mongo Port</h6><p><code>Cannot read property &#39;DEFAULT_PORT&#39; of undefined。</code></p>
+<p>需要将这个直接替换成mongodb的端口，一般默认是<code>27017</code>；但推荐是写在配置文件中引入。</p>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>上面是在这本书学习过程中遇到的几个主要的问题，写出来也算为后来的学习者提供点资料吧，因为在自己的查询过程中，发现这个错误信息的资料，尤其是中文资料真的不多，对新手不是很友好。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前面在看&lt;code&gt;node.js开发指南&lt;/code&gt;学习的时候，发现书中的版本比较旧了，一些代码在新的版本上存在一些不一致，会出现报错情况，下面是自己在跟随书本编写时遇到的一些问题及解决办法。
+    
+    </summary>
+    
+    
+      <category term="node.js javascript" scheme="http://yijiu.ren/tags/node-js-javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rails中自定义错误页面</title>
+    <link href="http://yijiu.ren/2016/10/30/Rails%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2/"/>
+    <id>http://yijiu.ren/2016/10/30/Rails中自定义错误页面/</id>
+    <published>2016-10-30T06:24:10.000Z</published>
+    <updated>2016-10-30T12:53:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Rails中当出现500和404错误时，默认使用的是Public下的错误页面，如500.html。在开发过程中或者是一些内部应用中，我们希望可以将错误信息暴露出来，以方便我们快速定位及解决问题。那么我们可以对错误页面的信息进行自定义。<a id="more"></a></p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>首先需要在config中开启这个设定，使用自定义的错误方式。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># config/application.rb   </span></div><div class="line">config.exceptions_app = <span class="keyword">self</span>.routes</div></pre></td></tr></table></figure>
+<p>设定后应该就是使用自己的错误定义了，也可以将public下的错误页面删了，不删也没什么关系。</p>
+<h2 id="定义错误动作"><a href="#定义错误动作" class="headerlink" title="定义错误动作"></a>定义错误动作</h2><p>使用自己的错误定义后，那就和其他的操作一样，首先定义路由跳转</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#通过数组定义错误代码，自己定制 </span></div><div class="line"><span class="string">%w(404 500)</span>.each <span class="keyword">do</span> <span class="params">|code|</span></div><div class="line">     match code, <span class="symbol">to:</span> <span class="string">"error#show"</span>, <span class="symbol">code:</span> code, <span class="symbol">:via</span> =&gt; [<span class="symbol">:get</span>, <span class="symbol">:post</span>, <span class="symbol">:put</span>, <span class="symbol">:patch</span>, <span class="symbol">:delete</span>]</div><div class="line"> <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">#正则表达式匹配路由，这个是项目使用的一种，将服务器错误（5XX）进行跳转</span></div><div class="line">match <span class="string">'/:code'</span>, <span class="symbol">to:</span> <span class="string">"error#show"</span>, <span class="symbol">code:</span> <span class="symbol">:code</span>, <span class="symbol">via:</span> <span class="symbol">:all</span>, <span class="symbol">:constraints</span> =&gt; &#123; <span class="symbol">:code</span> =&gt; <span class="regexp">/5(10|0\d)&#123;1&#125;/</span> &#125;</div></pre></td></tr></table></figure>
+<p><strong>这里需要说一下</strong>，当请求出错，使用路由跳转时，原来的请求方式和请求参数会被携带着转向错误处理。例如，当使用get时，参数为params={“test”:”测试”}，这个请求服务器出错，路由跳转错误处理时，使用的依旧是get方式，并带有原来的参数，所以需要确定自己需要对那些请求方式进行处理，简单的使用via: :all对所有的http请求进行匹配。</p>
+<p>在写好route后，需要相对应的cotroller文件</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorController</span> &lt; ApplicationController</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">show</span></span></div><div class="line">    <span class="comment">#自定义错误处理代码</span></div><div class="line">    ......</div><div class="line">  <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>如果需要将错误的log信息显示，可以通过环境变量去进行提取</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#获取错误log信息，进行自定义显示</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">env_exception</span></span></div><div class="line">  @ex <span class="params">||</span>= env[<span class="string">'action_dispatch.exception'</span>]</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">@err_mess = env_exception ? env_exception.message : <span class="string">''</span></div><div class="line">@err_info = env_exception ? env_exception.backtrace.join(<span class="string">"\n"</span>) : <span class="string">''</span></div></pre></td></tr></table></figure>
+<h2 id="Rails内自带的500错误提示"><a href="#Rails内自带的500错误提示" class="headerlink" title="Rails内自带的500错误提示"></a>Rails内自带的500错误提示</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"500 Internal Server Error\n"</span> </div><div class="line"><span class="string">"If you are the administrator of this website, then please read this web application's log file and/or the web server's log file to find out what went wrong."</span></div></pre></td></tr></table></figure>
+<p>这个是Rails自带的错误提示，当你自定义的错误页面代码出错时，无法展示了，就会转向这个告诉你出问题了，这是你就需要检查自己的错误信息页面哪里出问题了。</p>
+<h2 id="其它的思路"><a href="#其它的思路" class="headerlink" title="其它的思路"></a>其它的思路</h2><p>自定义错误信息也不一定去展示，在<code>error#show</code>中可以进行一些有趣的操作，常见的是加入邮件发送，通知管理员出问题了。另外也可以去调用一些消息通知，例如，添加一个钉钉的消息通知接口，出现错误后调用接口，将错误日志发给管理员，更加方便快捷。</p>
+<p>总的来说，这个自定义错误还是比较实用的，可以提高错误的通知效率，使得错误快速定位并解决，而不是说用户无法使用抱怨了，这才发现线上环境出现了错误。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Rails中当出现500和404错误时，默认使用的是Public下的错误页面，如500.html。在开发过程中或者是一些内部应用中，我们希望可以将错误信息暴露出来，以方便我们快速定位及解决问题。那么我们可以对错误页面的信息进行自定义。
+    
+    </summary>
+    
+    
+      <category term="Rails" scheme="http://yijiu.ren/tags/Rails/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Action Cable的使用分析</title>
+    <link href="http://yijiu.ren/2016/10/26/Action-Cable%E7%9A%84%E4%BD%BF%E7%94%A8%E5%88%86%E6%9E%90/"/>
+    <id>http://yijiu.ren/2016/10/26/Action-Cable的使用分析/</id>
+    <published>2016-10-26T14:39:07.000Z</published>
+    <updated>2016-10-30T07:19:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Action Cable是Rails5中为了类似聊天、通知之类的实时通讯而引入的新功能，是这个版本的一个重大特性吧，也可以说是基于websocket进行的一个服务。下面通过ruby china中对Action Cable的使用进行一定的解释。<a id="more"></a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>轮询：客户端采用AJAX向服务器发送请求，服务器接收到请求后立即返回响应信息并关闭连接。</li>
+<li>长轮询：客户端采用AJAX向服务器发送请求，服务器保持连接，等到有新消息时返回响应信息并关闭连接，客户端处理完响应信息后发送新的请求。</li>
+<li>长连接：客户端向服务器发送请求，建立一条持久化TCP连接，服务器写入数据后并不会关闭连接，之后的数据返回仍旧使用这条连接，客户端发起新请求时也是使用这条连接。但其中使用的是http请求，头部带有较多信息，相对来说，会有部分浪费。值得一说的是，<strong>由于HTTP协议特性，它是被动的，一个request只能有一个response，而response是被动的，不能够主动发起</strong></li>
+<li>websocket：一种基于TCP的协议，可以进行双向通信。在握手阶段，使用http协议发送一个请求，头部带有下列类似信息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Connection:Upgrade</div><div class="line">Sec-WebSocket-Extensions:permessage-deflate; client_max_window_bits</div><div class="line">Sec-WebSocket-Key:SbBf9EC5xV/w90MBFG9ptg==</div><div class="line">Sec-WebSocket-Protocol:actioncable-v1-json, actioncable-unsupported</div><div class="line">Sec-WebSocket-Version:13</div><div class="line">Upgrade:websocket</div></pre></td></tr></table></figure>
+<p>这样子的信息，告诉服务器端我要使用websocket协议，如果服务器支持websocket协议，会返回一个确认信息，表示已经使用websocket协议通信，如下显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Connection:upgrade</div><div class="line">Sec-WebSocket-Accept:......</div><div class="line">Sec-WebSocket-Protocol:actioncable-v1-json</div><div class="line">Upgrade:websocket</div></pre></td></tr></table></figure>
+<p>在这里之后就与http协议没有关系了，而这个连接的状态码应该是101，这也是一个协议转换的表现。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>Action Cable就是基于websocket开发的一个实时通讯的全栈解决方案，下面使用Ruby China的源码进行分析，对Action Cable的使用进行一定的说明，这个分析的话是从客户端请求开始解释，可能与实际开发过程不太一致。</p>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>Action Cable默认提供了一个文件<code>app/assets/javascripts/cable.js</code>可以用来开启websocket服务，而Ruby China中对代码进行了整合，放在了<code>app/assets/javascripts/app.coffee</code>这个文件中</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">......</div><div class="line"><span class="comment">#= require action_cable</span></div><div class="line">......</div><div class="line">window.App =</div><div class="line">  <span class="symbol">cable:</span> ActionCable.createConsumer()</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>这里的话调用后客户端就会新建一个websocket连接，其中在<code>layout/application.html.erb</code>文件中头部添加了 <code>&lt;%= action_cable_meta_tag %&gt;</code> 的标签，函数源码如下</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">action_cable_meta_tag</span></span></div><div class="line">  tag <span class="string">"meta"</span>, <span class="symbol">name:</span> <span class="string">"action-cable-url"</span>, <span class="symbol">content:</span> (</div><div class="line">    ActionCable.server.config.url <span class="params">||</span></div><div class="line">    ActionCable.server.config.mount_path <span class="params">||</span></div><div class="line">    raise(<span class="string">"No Action Cable URL configured -- please configure this at config.action_cable.url"</span>)</div><div class="line">  )</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这个会生成一个html标签，包含了<code>ActionCable.server</code>的url地址，被<code>createConsumer</code>函数利用。</p>
+<p>这里使用Ruby China中新回复提醒的功能进行解释，在<code>app/assets/javascripts/topics.coffee</code>中定义了下列函数</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">initialize: <span class="function"><span class="params">(opts)</span> -&gt;</span></div><div class="line">  @initCableUpdate()</div><div class="line">  ......</div><div class="line"></div><div class="line"></div><div class="line">initCableUpdate: <span class="function"><span class="params">()</span> -&gt;</span></div><div class="line">  self = @</div><div class="line"></div><div class="line">  <span class="keyword">if</span> <span class="keyword">not</span> Topics.topic_id</div><div class="line">    <span class="keyword">return</span></div><div class="line"></div><div class="line">  <span class="keyword">if</span> !<span class="built_in">window</span>.repliesChannel</div><div class="line">    <span class="built_in">console</span>.log <span class="string">"init repliesChannel"</span></div><div class="line">    <span class="built_in">window</span>.repliesChannel = App.cable.subscriptions.create <span class="string">'RepliesChannel'</span>,</div><div class="line">      connected: <span class="function">-&gt;</span></div><div class="line">        setTimeout =&gt;</div><div class="line">          @followCurrentTopic()</div><div class="line">          $(<span class="built_in">window</span>).<span class="literal">on</span> <span class="string">'unload'</span>, <span class="function">-&gt;</span> <span class="built_in">window</span>.repliesChannel.unfollow()</div><div class="line">          $(<span class="built_in">document</span>).<span class="literal">on</span> <span class="string">'page:change'</span>, <span class="function">-&gt;</span> <span class="built_in">window</span>.repliesChannel.followCurrentTopic()</div><div class="line">        , <span class="number">1000</span></div><div class="line"></div><div class="line">      received: <span class="function"><span class="params">(json)</span> =&gt;</span></div><div class="line">        <span class="keyword">if</span> json.user_id == App.current_user_id</div><div class="line">          <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">        <span class="keyword">if</span> json.action == <span class="string">'create'</span></div><div class="line">          <span class="keyword">if</span> App.windowInActive</div><div class="line">            @updateReplies()</div><div class="line">          <span class="keyword">else</span></div><div class="line">            $(<span class="string">".notify-updated"</span>).show()</div><div class="line"></div><div class="line">      followCurrentTopic: <span class="function">-&gt;</span></div><div class="line">        @perform <span class="string">'follow'</span>, topic_id: Topics.topic_id</div><div class="line"></div><div class="line">      unfollow: <span class="function">-&gt;</span></div><div class="line">        @perform <span class="string">'unfollow'</span></div></pre></td></tr></table></figure>
+<p><code>App.cable.subscriptions.create</code>这个操作会向RepliesChannel这个频道产生一个新的订阅，connected定义了连接时进行的操作，先执行<code>followCurrentTopic</code>这个函数，而根据这个函数的定义是去调用<code>RepliesChannel#follow</code>，这个类似于远程调用，调用的是服务端的函数，（服务端会主动暴露这些公开的方法，因此可以通过<code>perform</code>方法去调用），其中<code>follow</code>函数的定义如下</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">follow</span><span class="params">(data)</span></span></div><div class="line">  stop_all_streams</div><div class="line">  stream_from <span class="string">"topics/<span class="subst">#&#123;data[<span class="string">'topic_id'</span>]&#125;</span>/replies"</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>stream_from 函数查代码显示<br><code>logger.info &quot;#{self.class.name} is streaming from #{broadcasting}&quot;</code>，<br>ActionCable 收发信息的最小单位是 stream ，这个函数主要是对连接下的stream进行标记。</p>
+<p>上述是客户端对服务器端进行了频道的订阅，当然订阅后也可以通过这样调用<br><code>window.repliesChannel.send({ sent_by: &quot;test&quot;, body: &quot;This is a test.&quot; })</code>向服务器端发送消息，服务器端需要设定<code>received</code>函数进行接收，Ruby China没有用到这个功能，所以没有定义。</p>
+<h4 id="服务器端"><a href="#服务器端" class="headerlink" title="服务器端"></a>服务器端</h4><p>首先在<code>app/channels/application_cable/connection.rb</code>这个文件中对客户端的连接进行认证</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">identified_by <span class="symbol">:current_user_id</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">connect</span></span></div><div class="line">  <span class="keyword">self</span>.current_user_id = find_verified_user_id</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">protected</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_verified_user_id</span></span></div><div class="line">  cookies.signed[<span class="symbol">:user_id</span>] <span class="params">||</span> <span class="literal">nil</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>当用户没有登录时可以选择拒绝连接<code>reject_unauthorized_connection</code>，这里没有这么做。</p>
+<p>然后呢在<code>app/channels/application_cable/channel.rb</code>中定义<code>ApplicationCable::Channel</code>类，在这个里面可以写一些多个channel共用的代码。剩下的就是定义自己需要使用的channel，Ruby China中定义了<code>notifications_channel</code>和<code>replies_channel</code>。</p>
+<p>然后呢，当用户对一个topic进行回复之后，在数据成功创建后，<code>app/models/reply.rb</code>model中定义的</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">after_commit <span class="symbol">:async_create_reply_notify</span>, <span class="symbol">on:</span> <span class="symbol">:create</span>, <span class="symbol">unless:</span> -&gt; &#123; system_event? &#125;</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">async_create_reply_notify</span></span></div><div class="line">  NotifyReplyJob.perform_later(id)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这里使用了activejob进行处理，<code>perform_later</code>会调用<code>perform</code>函数，查看<code>app/jobs/notify_reply_job.rb</code>的代码可以发现<br><code>NotifyReplyJob#perform</code>又调用了一个类方法</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">perform</span><span class="params">(reply_id)</span></span></div><div class="line">  Reply.notify_reply_created(reply_id)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>而其中<code>notify_reply_created</code>函数定义如下，部分省略</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">notify_reply_created</span><span class="params">(reply_id)</span></span></div><div class="line">  ......</div><div class="line">  <span class="keyword">self</span>.broadcast_to_client(reply)</div><div class="line"></div><div class="line">  <span class="literal">true</span></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">self</span>.<span class="title">broadcast_to_client</span><span class="params">(reply)</span></span></div><div class="line">  ActionCable.server.broadcast(<span class="string">"topics/<span class="subst">#&#123;reply.topic_id&#125;</span>/replies"</span>, <span class="symbol">id:</span> reply.id, <span class="symbol">user_id:</span> reply.user_id, <span class="symbol">action:</span> <span class="symbol">:create</span>)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>通过方法调用可以发现，最后使用<code>ActionCable.server.broadcast</code>进行消息的广播，向客户端传播消息。</p>
+<h4 id="回到客户端"><a href="#回到客户端" class="headerlink" title="回到客户端"></a>回到客户端</h4><p>再回到客户端，前面的coffee代码中定义了接收操作</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">received:</span> (json) =&gt;</div><div class="line">  <span class="keyword">if</span> json.user_id == App.current_user_id</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">  <span class="keyword">if</span> json.action == <span class="string">'create'</span></div><div class="line">    <span class="keyword">if</span> App.windowInActive</div><div class="line">      @updateReplies()</div><div class="line">    <span class="keyword">else</span></div><div class="line">      $(<span class="string">".notify-updated"</span>).show()</div></pre></td></tr></table></figure>
+<p>对传输数据进行一些验证，然后将<code>class=&quot;notify-updated&quot;</code>的div模块显示，而模块代码如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"notify-updated"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"update"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-bell-o"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="tag">&lt;<span class="name">b</span>&gt;</span>有新回复！<span class="tag">&lt;/<span class="name">b</span>&gt;</span>点击这里立即载入<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>最终就得到了下图的效果，当有新回复时，处于当前页面的用户会收到提醒。<img src="/images/new_reply.png" alt=""></p>
+<p>最后附上一张曹力在RubyConf China 2016上关于 <strong><a href="https://speakerdeck.com/shiningray/actioncablehe-shi-shi-jiao-hu" target="_blank" rel="external">ActionCable 与实时交互</a></strong>中的PPT的一张截图，全面的解析了整体过程<img src="/images/actioncable.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Action Cable是Rails5中为了类似聊天、通知之类的实时通讯而引入的新功能，是这个版本的一个重大特性吧，也可以说是基于websocket进行的一个服务。下面通过ruby china中对Action Cable的使用进行一定的解释。
+    
+    </summary>
+    
+    
+      <category term="Rails" scheme="http://yijiu.ren/tags/Rails/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>写在毕业之际</title>
+    <link href="http://yijiu.ren/2016/06/07/%E5%86%99%E5%9C%A8%E6%AF%95%E4%B8%9A%E4%B9%8B%E9%99%85/"/>
+    <id>http://yijiu.ren/2016/06/07/写在毕业之际/</id>
+    <published>2016-06-07T14:24:53.000Z</published>
+    <updated>2016-06-08T08:15:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>毕设的主要工作已经完成了，离毕业还有一个月的时间，所以有着较多空闲的时间。回想起这个博客，已经有一年多的时间没有更新了，其中主要因为秋招找工作，后面去公司实习，然后今年主要在学校做毕设，中间虽然遇到了较多的问题，但是因为自己偷懒，许多的内容都直接记录在印象笔记中，没有进行整理。</p>
+<p>这几天开始把博客重新拾了起来，在windows上也装上了hexo，这样子双系统的环境也能够让自己写博客。然后把博客整理了一下，换了一个极度简洁的主题，删除了一些文章，开始一个新的征程。顺带由于前面使用的gitcafe停止了，所以使用coding进行国内的加速，这样子在使用体验上已经没有什么问题了，现在需要的就是提供高质量的博客内容了。</p>
+<h2 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h2><p>自己即将走上工作之路，想想也应该改一改这个极度懒惰的毛病了，一些习惯是需要坚持下去的。多读书，多看报，少吃零食，多睡觉，以后坚持对一些问题的笔记进行整理，写成博客进行记录，这对自己也是一种成长的见证。</p>
+<p><strong>脚踏实地，方能仰望星空，以此共勉</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;回顾&quot;&gt;&lt;a href=&quot;#回顾&quot; class=&quot;headerlink&quot; title=&quot;回顾&quot;&gt;&lt;/a&gt;回顾&lt;/h2&gt;&lt;p&gt;毕设的主要工作已经完成了，离毕业还有一个月的时间，所以有着较多空闲的时间。回想起这个博客，已经有一年多的时间没有更新了，其中主要因为秋招找工
+    
+    </summary>
+    
+    
+      <category term="废话" scheme="http://yijiu.ren/tags/%E5%BA%9F%E8%AF%9D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GET 和 POST 的区别</title>
+    <link href="http://yijiu.ren/2015/05/14/GET-%E5%92%8C-POST-%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yijiu.ren/2015/05/14/GET-和-POST-的区别/</id>
+    <published>2015-05-14T14:43:49.000Z</published>
+    <updated>2016-06-07T08:42:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>   写这篇文章的原因是因为在面试时被问到了这个问题，结果因为自己只了解了一点，被深入询问时就彻底的崩盘了<em>（心态真的很重要啊）</em>，然后就不知道说什么了，所以结束后就自己查询了下资料，记录下来，也算是在这个过程中学到了一些东西。<br> <a id="more"></a></p>
+<h2 id="简单定义"><a href="#简单定义" class="headerlink" title="简单定义"></a>简单定义</h2><p>   在 Http 中定义了与服务器交互的不同方式，最基本的方法有4种，一般是GET，POST，PUT，DELETE 。 URL全称为统一资源定位符，一个URL地址对应着网上的一个资源，而HTTP的GET，POST，PUT，DELETE则分别对应着 <strong>查</strong>，<strong>改</strong>，<strong>增</strong>，<strong>删</strong> 的4个操作，这个概念个人觉得还是比较容易理解和记忆的。</p>
+<blockquote>
+<p>GET 一般用于 获取/查询 资源信息，POST一般用于 更改 资源信息。</p>
+</blockquote>
+<hr>
+<p> ★   <em>一般在浏览器中输入网址访问资源都是通过 <strong>get</strong> 的方式</em></p>
+<hr>
+<h2 id="概念区别"><a href="#概念区别" class="headerlink" title="概念区别"></a>概念区别</h2><ol>
+<li><p>根据HTTP规范，GET用于<strong>信息获取</strong>，而且应该是 <em>安全</em> 的和 <em>幂等</em> 的</p>
+<ol>
+<li>所谓安全的意味着该操作用于获取信息而非修改信息。换句话说，GET操作请求一般不会产生不良后果。就是说，他仅仅是获取资源信息，就像数据库查询一样，不会修改、增加数据，不会影响资源的状态。</li>
+<li>幂等的意味着对于同一URL的多个请求应该返回同样的结果。</li>
+</ol>
+</li>
+<li><p>根据HTTP规范，POST表示可能会 <strong>修改</strong> 服务器上资源的请求</p>
+</li>
+</ol>
+<h2 id="提交方式的区别"><a href="#提交方式的区别" class="headerlink" title="提交方式的区别"></a>提交方式的区别</h2><ul>
+<li><p>GET提交：请求的数据会附在URL之后（就是把数据放置在请求行（request line）      中），以?分割URL和传输数据，多个参数用&amp;连接；例如：<br>login.action? name=suiyi&amp;password=idontknow&amp;verify=%E4%BD%A0 %E5。<br>URL的编码格式采用的是ASCII码，而不是Unicode。</p>
+</li>
+<li><p>POST提交：把提交的数据放置在HTTP包的包体中。</p>
+</li>
+</ul>
+<p><strong>因此</strong>，GET提交的数据会<em>在地址栏中显示出来</em>，而POST提交时，<em>地址栏不会的改变</em>。</p>
+<ul>
+<li><p>GET : 特定浏览器和数据对URL长度有限制，传输数据就会受到URL长度的限制。</p>
+</li>
+<li><p>POST：由于不是通过URL传值，理论上数据不受限。</p>
+</li>
+</ul>
+<h2 id="POST的安全性比GET的安全性要高"><a href="#POST的安全性比GET的安全性要高" class="headerlink" title="POST的安全性比GET的安全性要高"></a>POST的安全性比GET的安全性要高</h2><ol>
+<li><p>通过GET提交数据，用户名和密码将明文出现在URL上</p>
+<ol>
+<li>登录页面可能被浏览器缓存</li>
+<li>其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了</li>
+</ol>
+</li>
+</ol>
+<ol>
+<li>POST是将表单中的数据放在form的数据体中，按照变量和值相对应的方式，传递到action所指向URL。</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;   写这篇文章的原因是因为在面试时被问到了这个问题，结果因为自己只了解了一点，被深入询问时就彻底的崩盘了&lt;em&gt;（心态真的很重要啊）&lt;/em&gt;，然后就不知道说什么了，所以结束后就自己查询了下资料，记录下来，也算是在这个过程中学到了一些东西。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="http" scheme="http://yijiu.ren/tags/http/"/>
+    
+      <category term="网络" scheme="http://yijiu.ren/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu下搭建LAMP服务器</title>
+    <link href="http://yijiu.ren/2014/11/28/Ubuntu%E4%B8%8B%E6%90%AD%E5%BB%BALAMP%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://yijiu.ren/2014/11/28/Ubuntu下搭建LAMP服务器/</id>
+    <published>2014-11-28T07:43:00.000Z</published>
+    <updated>2016-06-07T08:43:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文主要记录下在Ubuntu下搭建LAMP服务器的大致流程</p>
+<pre><code>LAMP = Linux + Apache + Mysql + PHP
+</code></pre><a id="more"></a>
+<h2 id="安装Apache2"><a href="#安装Apache2" class="headerlink" title="安装Apache2"></a>安装Apache2</h2><p>第一步是安装Apache2，在Ubuntu下只需要使用  apt-get install  命令即可</p>
+<pre><code>$ sudo apt-get install apache2
+</code></pre><h2 id="安装PHP"><a href="#安装PHP" class="headerlink" title="安装PHP"></a>安装PHP</h2><p>安装PHP需要安装两个包，一个是 <code>PHP5</code> 本身，二是Apache2的 <code>PHP模块</code> ，安装命令如下：</p>
+<pre><code>$ sudo apt-get install php5 libapache2-mod-php5
+</code></pre><h2 id="配置Mysql的root密码"><a href="#配置Mysql的root密码" class="headerlink" title="配置Mysql的root密码"></a>配置Mysql的root密码</h2><p>如果你在用上述的命令安装完Mysql后使用命令：</p>
+<pre><code>$ mysql -uroot -p
+</code></pre><p><strong>注意</strong>：这里不用输入密码，直接敲回车键就能进入Mysql中</p>
+<p>进入后我们可以使用命令来重新设置root密码，也可以同样地新建用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;USE mysql;</div><div class="line">&gt;UPDATE user SET password = PASSWORD(&apos;你要设置的密码&apos;) WHERE user= &apos;root&apos;;</div><div class="line">&gt;flush privilege;</div><div class="line">&gt;exit;</div></pre></td></tr></table></figure>
+<p>登录Mysql的操作就是上面的命令：</p>
+<pre><code>$ mysql -u(&apos;你的用户名&apos;) -p
+</code></pre><p>回车后输入你的密码即可</p>
+<h2 id="启动Apache2"><a href="#启动Apache2" class="headerlink" title="启动Apache2"></a>启动Apache2</h2><p>现在我们用命令启动<code>apache2</code>服务：</p>
+<pre><code>$ sudo service apache2 start
+</code></pre><p>然后我们通过浏览器访问<a href="http://localhost/" target="_blank" rel="external">http://localhost/</a>,应该能看到一个关于apache2的网页，有一行是：</p>
+<pre><code>It Works!
+</code></pre><p>到这，一台基于Ubuntu能够正常使用的服务器已经搭好了。</p>
+<h2 id="安装PHPMyAdmin"><a href="#安装PHPMyAdmin" class="headerlink" title="安装PHPMyAdmin"></a>安装PHPMyAdmin</h2><p>PHPMyAdmin是一款基于PHP的数据库管理网站，在Ubuntu下安装也比较简单：</p>
+<pre><code>$ sudo apt-get install phpmyadmin
+</code></pre><p>然后我们将PHPMyAdmin的配置复制到apache2的配置文件夹下：</p>
+<pre><code>$ sudo cp /etc/phpmyadmin/apache.conf /etc/apache2/sites-available/phpmyadmin.conf
+
+$ sudo ln -s /etc/apache2/sites-available/phpmyadmin.conf /etc/apache2/sites-enabled/phpmyadmin.conf
+</code></pre><p>最后，我们重启apapche2:</p>
+<pre><code>$ sudo service apache2 restart
+</code></pre><p>然后我们访问<a href="http://localhost/phpmyadmin/" target="_blank" rel="external">http://localhost/phpmyadmin/</a>,用你的数据库帐号密码登录</p>
+<p><strong>提醒</strong>:这里存在着一个问题，用你新建的账户无法登录，我自己测试只能用root账户登录，不知道原因，待找到解决办法再更新本文！</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文主要记录下在Ubuntu下搭建LAMP服务器的大致流程&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;LAMP = Linux + Apache + Mysql + PHP
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="http://yijiu.ren/tags/Ubuntu/"/>
+    
+      <category term="服务器" scheme="http://yijiu.ren/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="LAMP" scheme="http://yijiu.ren/tags/LAMP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python学习(二)-----八皇后问题</title>
+    <link href="http://yijiu.ren/2014/11/19/Python%E5%AD%A6%E4%B9%A0-%E4%BA%8C-%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/"/>
+    <id>http://yijiu.ren/2014/11/19/Python学习-二-八皇后问题/</id>
+    <published>2014-11-19T13:39:44.000Z</published>
+    <updated>2016-06-07T08:42:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h2><p>  在8*8的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法？<br><a id="more"></a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>  首先尝试放置第一个皇后(在第一行)，然后放置第二个皇后，以此类推。如果发现不能放下最后一个皇后，就回溯到上一步，试着将皇后放到其他的位置。</p>
+<h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><p>使用生成器。生成器是逐渐产生结果的复杂递归算法的理想实现工具。本解决方法是 &lt;<strong>pyhton基础教程</strong> &gt;中的代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#定义冲突函数,用于判断下一个皇后的位置会不会有冲突。</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">conflict</span> <span class="params">(state , nextX)</span> :</span>       <span class="comment">#nextX代表下一个皇后的水平位置(列)，nextY代表垂直位置</span></div><div class="line">	nextY = len (state)         <span class="comment">#state[0] = 0,表示皇后处于第一行第一列(从0开始计数)</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range (nextY) :    <span class="comment">#range  包括起始，不包括结尾，后面的数为下个序列第一个数的编号</span></div><div class="line">		<span class="keyword">if</span> abs (state[i]-nextX) <span class="keyword">in</span> (<span class="number">0</span>,nextY-i) :</div><div class="line">		              <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">	<span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="comment">#如果只剩一个皇后没有放置，那么遍历它所有可能的位置，并且返回没有冲突的位置</span></div><div class="line"> <span class="function"><span class="keyword">def</span> <span class="title">queens</span> <span class="params">(num,state)</span> :</span>    <span class="comment">#num参数是皇后的总数,state参数是存放前面皇后的位置信息的元祖</span></div><div class="line"> 	<span class="keyword">if</span> len(state) == num<span class="number">-1</span>:</div><div class="line"> 		<span class="keyword">for</span> pos <span class="keyword">in</span> range (num) :</div><div class="line"> 			<span class="keyword">if</span> <span class="keyword">not</span> conflict(state, pos) :</div><div class="line"> 				<span class="keyword">yield</span> pos</div><div class="line"></div><div class="line"><span class="comment">#程序从前面的皇后得到了包含信息的元组,并且要为后面的皇后提供当前皇后的每种合法的位置信息</span></div><div class="line">.......</div><div class="line">      <span class="keyword">else</span> :</div><div class="line">      	<span class="keyword">for</span> pos <span class="keyword">in</span> range(num) :</div><div class="line">      		<span class="keyword">if</span> <span class="keyword">not</span> conflict (state, pos) :</div><div class="line">      			<span class="keyword">for</span> result <span class="keyword">in</span> queens(num,state + (pos,)) :    <span class="comment">#生成器，解决问题的关键所在</span></div><div class="line">      				<span class="keyword">yield</span> (pos,) + result</div><div class="line"></div><div class="line"><span class="comment">#定义一个输出函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">prettyprint</span><span class="params">(solution)</span> :</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">line</span><span class="params">(pos,length = len<span class="params">(solution)</span>)</span> :</span></div><div class="line">		<span class="keyword">return</span> <span class="string">'. '</span> * (pos) + <span class="string">'X '</span> + <span class="string">'. '</span> * (length - pos <span class="number">-1</span>)</div><div class="line">	<span class="keyword">for</span> pos <span class="keyword">in</span> solution :</div><div class="line">		<span class="keyword">print</span> line(pos)</div><div class="line"></div><div class="line"><span class="comment">#中间优化的代码</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">queens</span><span class="params">(num = <span class="number">8</span>,state = <span class="params">()</span>)</span> :</span></div><div class="line">	<span class="keyword">for</span> pos <span class="keyword">in</span> range (num) :</div><div class="line">		<span class="keyword">if</span> <span class="keyword">not</span> conflict(state, pos) :</div><div class="line">			<span class="keyword">if</span> len(state) == num <span class="number">-1</span> :</div><div class="line">				<span class="keyword">yield</span> (pos,)</div><div class="line">			<span class="keyword">else</span> :</div><div class="line">				<span class="keyword">for</span> <span class="keyword">return</span> <span class="keyword">in</span> queens(num,state + (pos,)) :</div><div class="line">					<span class="keyword">yield</span> (pos,) + result</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;八皇后问题&quot;&gt;&lt;a href=&quot;#八皇后问题&quot; class=&quot;headerlink&quot; title=&quot;八皇后问题&quot;&gt;&lt;/a&gt;八皇后问题&lt;/h2&gt;&lt;p&gt;  在8*8的国际象棋上摆放八个皇后，使其不能互相攻击，即任意两个皇后都不能处于同一行、同一列或同一斜线上，问有多少种摆法？&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yijiu.ren/tags/Python/"/>
+    
+      <category term="八皇后" scheme="http://yijiu.ren/tags/%E5%85%AB%E7%9A%87%E5%90%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python学习(一)-----递归</title>
+    <link href="http://yijiu.ren/2014/11/10/Python%E5%AD%A6%E4%B9%A0-%E4%B8%80-%E9%80%92%E5%BD%92/"/>
+    <id>http://yijiu.ren/2014/11/10/Python学习-一-递归/</id>
+    <published>2014-11-10T15:11:48.000Z</published>
+    <updated>2016-06-07T08:42:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>   递归的方法虽然效率不高，但是有些地方的使用( <em>对时间的要求不高时</em> )还是可以轻松的解决一些问题的，也能够用来替代一些循环，在自己的做题中使用还是可以的。这里是使用递归实现的 <strong>二叉查找方法</strong> ，让自己对递归更好的理解。<br><a id="more"></a></p>
+<h2 id="二分查找的关键"><a href="#二分查找的关键" class="headerlink" title="二分查找的关键"></a>二分查找的关键</h2><ol>
+<li>如果上下限相同，那么就是数字所在的位置，返回</li>
+<li>否则找到两者的中点(上下限的平均值)，查找数字是在左侧还是在右侧，继续查找数字所在的那半部分</li>
+<li>关键的是查找的序列是<em>有序</em>且为<em>升序</em></li>
+</ol>
+<p><strong><em>提示：标准库中的 bisect 模块可以非常有效的实现二分查找 。</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span> <span class="params">(sequence,number,lower,upper)</span> :</span></div><div class="line">       <span class="keyword">if</span> lower == uppper :</div><div class="line">           <span class="keyword">assert</span> number == sequence[upper]  <span class="comment">#断言，用来判断数字是否为找到的数，否的话引起一个错误</span></div><div class="line">           <span class="keyword">return</span> upper</div><div class="line">       <span class="keyword">else</span> :</div><div class="line">           middle = (lower + upper) //<span class="number">2</span>   <span class="comment">#整除</span></div><div class="line">           <span class="keyword">if</span> number &gt; sequence[middle]</div><div class="line">                 <span class="keyword">return</span> search(sequence,number,middle+<span class="number">1</span>,upper)</div><div class="line">           <span class="keyword">else</span> :</div><div class="line">                 <span class="keyword">return</span> search(sequence,number,lower,middle)</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;   递归的方法虽然效率不高，但是有些地方的使用( &lt;em&gt;对时间的要求不高时&lt;/em&gt; )还是可以轻松的解决一些问题的，也能够用来替代一些循环，在自己的做题中使用还是可以的。这里是使用递归实现的 &lt;strong&gt;二叉查找方法&lt;/strong&gt; ，让自己对递归更好的理解。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yijiu.ren/tags/Python/"/>
+    
+      <category term="二叉查找" scheme="http://yijiu.ren/tags/%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE/"/>
+    
+      <category term="递归" scheme="http://yijiu.ren/tags/%E9%80%92%E5%BD%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo的基本命令</title>
+    <link href="http://yijiu.ren/2014/10/28/hexo%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yijiu.ren/2014/10/28/hexo的基本命令/</id>
+    <published>2014-10-28T13:39:13.000Z</published>
+    <updated>2016-06-07T08:42:31.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>   这个博客使用的就是hexo，一些命令可能随时间会有部分遗忘，所以写一篇文章记录下来方便自己下次查询。<br>   <a id="more"></a></p>
+<h2 id="新建博文"><a href="#新建博文" class="headerlink" title="新建博文"></a>新建博文</h2><pre><code>hexo new [layout] &quot;postName&quot;
+</code></pre><p>  其中layout是可选参数，默认值为post。</p>
+<h2 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h2><pre><code>hexo new page &quot;about&quot;
+</code></pre><p>  在hexo\source\下会生成about目录，里面有个index.md，直接编辑就可以了，然后在主题的_config.yml中在menu中添加下相对路径。</p>
+<h2 id="read-more功能"><a href="#read-more功能" class="headerlink" title="read more功能"></a>read more功能</h2><p>   编辑博文时可以添加这个以显示在页面你想显示的摘要类内容，可以自己控制长度，当然长度须在主题允许的长度内，也可更改主题内限制长度达到相同的效果。</p>
+<pre><code>&lt;!--more--&gt;
+</code></pre><h2 id="清除"><a href="#清除" class="headerlink" title="清除"></a>清除</h2><p>   有时直接生成会出现一些未知的错误，例如自己写的东西推送不上去，或者生成的内容不对，这时可能就需要清空下。</p>
+<pre><code>hexo clean
+</code></pre><h2 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h2><pre><code>hexo generate
+</code></pre><h2 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h2><pre><code>hexo server
+</code></pre><p>   执行这个命令，启动本地服务，进行文章预览，根据显示效果在根据自己的需求进行修改。浏览器输入  <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  可以查看</p>
+<h2 id="上传更新"><a href="#上传更新" class="headerlink" title="上传更新"></a>上传更新</h2><pre><code>hexo deploy
+</code></pre><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">hexo new &quot;postName&quot; #新建文章</div><div class="line">hexo new page &quot;pageName&quot; #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</div><div class="line">hexo deploy #将.deploy目录部署到GitHub</div></pre></td></tr></table></figure>
+<h2 id="常用复合命令"><a href="#常用复合命令" class="headerlink" title="常用复合命令"></a>常用复合命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo deploy -g</div><div class="line">hexo server -g</div></pre></td></tr></table></figure>
+<h2 id="命令简写"><a href="#命令简写" class="headerlink" title="命令简写"></a>命令简写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">hexo n == hexo new</div><div class="line">hexo g == hexo generate</div><div class="line">hexo s == hexo server</div><div class="line">hexo d == hexo deploy</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;   这个博客使用的就是hexo，一些命令可能随时间会有部分遗忘，所以写一篇文章记录下来方便自己下次查询。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://yijiu.ren/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown的语法说明</title>
+    <link href="http://yijiu.ren/2014/10/06/Markdown%E7%9A%84%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/"/>
+    <id>http://yijiu.ren/2014/10/06/Markdown的语法说明/</id>
+    <published>2014-10-06T08:17:43.000Z</published>
+    <updated>2016-06-07T08:42:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>   写这篇文章主要是博客需要用到这种语言，所以就参考网上的一些资料，记录下来方便自己用到时的查阅和学习，不过看着这个写东西确实方便，觉得值得一学。</p>
+<a id="more"></a>
+<h3 id="1-斜体和粗体"><a href="#1-斜体和粗体" class="headerlink" title="1. 斜体和粗体"></a><strong>1. 斜体和粗体</strong></h3><p>使用* 和 ** 表示斜体和粗体。</p>
+<p>示例：</p>
+<pre><code>*斜体*   和   **粗体**
+</code></pre><p>是 <em>斜体</em>，这是 <strong>粗体</strong>。</p>
+<h3 id="2-分级标题"><a href="#2-分级标题" class="headerlink" title="2. 分级标题"></a><strong>2. 分级标题</strong></h3><p>使用 === 表示一级标题，使用 — 表示二级标题。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">这是一个一级标题</div><div class="line">============================</div><div class="line"></div><div class="line">这是一个二级标题</div><div class="line">--------------------------------------------------</div><div class="line"></div><div class="line">这是一个三级标题</div></pre></td></tr></table></figure>
+<p>你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#一级标题</div><div class="line">##二级标题</div><div class="line">###三级标题</div><div class="line">####四级标题</div><div class="line">#####五级标题</div><div class="line">######六级标题</div></pre></td></tr></table></figure>
+<h3 id="3-外链接"><a href="#3-外链接" class="headerlink" title="3. 外链接"></a><strong>3. 外链接</strong></h3><p>使用[描述](链接地址) 为文字增加外链接。</p>
+<p>示例：</p>
+<pre><code>[本人微博](http://weibo.com/u/5318074256)
+</code></pre><p>这是去往 <a href="http://weibo.com/u/5318074256" target="_blank" rel="external">本人微博</a> 的链接。</p>
+<h3 id="4-无序列表"><a href="#4-无序列表" class="headerlink" title="4. 无序列表"></a><strong>4. 无序列表</strong></h3><p>使用 *，+，- 表示无序列表。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- 无序列表项 一</div><div class="line">- 无序列表项 二</div><div class="line">- 无序列表项 三</div></pre></td></tr></table></figure></p>
+<ul>
+<li>无序列表项 一</li>
+<li>无序列表项 二</li>
+<li>无序列表项 三</li>
+</ul>
+<h3 id="5-有序列表"><a href="#5-有序列表" class="headerlink" title="5. 有序列表"></a><strong>5. 有序列表</strong></h3><p>使用数字和点,空格表示有序列表。</p>
+<p>示例：</p>
+<ol>
+<li>有序列表项 一</li>
+<li>有序列表项 二</li>
+<li>有序列表项 三</li>
+</ol>
+<h3 id="6-文字引用"><a href="#6-文字引用" class="headerlink" title="6. 文字引用"></a><strong>6. 文字引用</strong></h3><p>使用 &gt; 表示文字引用。</p>
+<p>示例：</p>
+<pre><code>&gt; 野火烧不尽，春风吹又生。
+</code></pre><blockquote>
+<p>野火烧不尽，春风吹又生。</p>
+</blockquote>
+<h3 id="7-行内代码块"><a href="#7-行内代码块" class="headerlink" title="7. 行内代码块"></a><strong>7. 行内代码块</strong></h3><p>使用  `代码`  表示行内代码块。</p>
+<p>示例：让我们聊聊 <code>html</code>。</p>
+<h3 id="8-代码块"><a href="#8-代码块" class="headerlink" title="8.  代码块"></a><strong>8.  代码块</strong></h3><p>使用 四个缩进空格 表示代码块。</p>
+<p>示例：</p>
+<pre><code>这是一个代码块，此行左侧有四个不可见的空格。
+</code></pre><h3 id="9-插入图像"><a href="#9-插入图像" class="headerlink" title="9.  插入图像"></a><strong>9.  插入图像</strong></h3><p>使用 ![描述](图片链接地址) 插入图像。</p>
+<p>示例：</p>
+<pre><code>![美图](http://github-renyijiu.qiniudn.com/2.jpg)
+</code></pre><p><img src="http://github-renyijiu.qiniudn.com/2.jpg" alt="美图"></p>
+<h3 id="10-分割线"><a href="#10-分割线" class="headerlink" title="10. 分割线"></a><strong>10. 分割线</strong></h3><p>三个或更多-_*，必须单独一行，可含空格</p>
+<pre><code>----
+</code></pre><h3 id="11-删除线"><a href="#11-删除线" class="headerlink" title="11. 删除线"></a><strong>11. 删除线</strong></h3><p>使用 ~~ 表示删除线。</p>
+<p><del>这是一段错误的文本。</del>    (制定计划表时可用，挺好的)</p>
+<h3 id="12-表格支持"><a href="#12-表格支持" class="headerlink" title="12. 表格支持"></a><strong>12. 表格支持</strong></h3><p>示例：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">价格</th>
+<th style="text-align:center">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算机</td>
+<td style="text-align:right">$1600</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td style="text-align:right">$12</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">234</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-自动链接"><a href="#13-自动链接" class="headerlink" title="13. 自动链接"></a><strong>13. 自动链接</strong></h3><p>尖括号    </p>
+<pre><code>&lt;http://yijiu.ren&gt;
+</code></pre><p><a href="http://yijiu.ren">http://yijiu.ren</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;   写这篇文章主要是博客需要用到这种语言，所以就参考网上的一些资料，记录下来方便自己用到时的查阅和学习，不过看着这个写东西确实方便，觉得值得一学。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Markdown" scheme="http://yijiu.ren/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>博客的开始之旅</title>
+    <link href="http://yijiu.ren/2014/10/05/The%20Beginning/"/>
+    <id>http://yijiu.ren/2014/10/05/The Beginning/</id>
+    <published>2014-10-05T12:36:53.000Z</published>
+    <updated>2016-06-07T08:43:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>   这个博客有了大致的样子，对于这些框架和主题，我只是个使用者，(<strong>这是本博客使用参考的主题</strong>—-<a href="https://github.com/daisygao/hexo-themes-cover" target="_blank" rel="external">daisygao的github</a>,<strong>感谢下这些奉献的人</strong>）但对于一个我这种对前端完全没有知识储备的小白也是一个艰难的过程。这几天的不断的百度，不断的谷歌<strong>（</strong>这里不得不夸下<strong>google浏览器</strong>，这真是浏览器的王者，使用体验非常好。顺带说下，翻墙真的太爽了，外面的世界很精彩<strong>）</strong>，慢慢的也都有所了解了，也大致知道了自己后面需要做的。毕竟刚刚开始，后面自己会学着慢慢的增加一些功能。<a id="more"></a><br>   <img src="http://github-renyijiu.qiniudn.com/sky.jpg" alt="enter image description here"></p>
+<h1 id="从windows到ubuntu"><a href="#从windows到ubuntu" class="headerlink" title="从windows到ubuntu"></a>从windows到ubuntu</h1><p>   自己接触电脑是比较晚的，而且只知道windows，上了大学后慢慢的有所了解，受身边人的影响，让我有了程序员都钟情于linux的错觉，所以自己也忍不住进入了这个队伍，开始时，在虚拟机装上ubuntu折腾过一段时间，但发现ubuntu这个系统在虚拟机的性能确实不敢恭维，主要是发现在虚拟机上无法识别显卡，导致只有屏幕中间那么一个小的范围可以显示，因为太懒了，也没有去尝试安装闭源驱动。后来，就在一块硬盘上装了windows8.1和ubuntu两个系统，在慢慢的使用过程中发现自己越来越喜欢这个系统了，但不知什么原因<strong>（</strong>我猜测是分区的关系，未验证过<strong>）</strong>导致系统使用比较慢，体验并不好。这对于一个强迫症患者来说是难以忍受的，所以就大出血购入了一块ssd，装上了ubuntu，彻底的将ubuntu作为了日常使用的操作系统。作为一个对游戏无爱的手残党，windows的用处也只剩日常一些word文档的排版问题了，基本的使用ubuntu已基本能满足了。</p>
+<h1 id="无力吐槽"><a href="#无力吐槽" class="headerlink" title="无力吐槽"></a>无力吐槽</h1><p>   在ubuntu的学习过程中，总免不了把系统折腾坏了，作为小白唯一的想法是重装，但很多问题的解决方案在重装后又需要查找(<em>上回在ssd装ubuntu时就是个教训，原来的一些笔记未保存，导致装好后一些问题需要重新找解决方案,有时还半天下来没有一个自己满意的方法</em>)，所以一直想搭个博客记录下一些东西，现在也有了大体，以后会在慢慢的学习过程中增加和弥补的，总算有个自己的地方了，妈妈再也不用担心我的资料没地存了。</p>
+<hr>
+<p><em>作为一个纯的工科男，真的发现自己不会写文章，就这么些字，怎么都感觉写得很别扭，诶，慢慢学习吧，学习中成长！</em></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;   这个博客有了大致的样子，对于这些框架和主题，我只是个使用者，(&lt;strong&gt;这是本博客使用参考的主题&lt;/strong&gt;—-&lt;a href=&quot;https://github.com/daisygao/hexo-themes-cover&quot;&gt;daisygao的github&lt;/a&gt;,&lt;strong&gt;感谢下这些奉献的人&lt;/strong&gt;）但对于一个我这种对前端完全没有知识储备的小白也是一个艰难的过程。这几天的不断的百度，不断的谷歌&lt;strong&gt;（&lt;/strong&gt;这里不得不夸下&lt;strong&gt;google浏览器&lt;/strong&gt;，这真是浏览器的王者，使用体验非常好。顺带说下，翻墙真的太爽了，外面的世界很精彩&lt;strong&gt;）&lt;/strong&gt;，慢慢的也都有所了解了，也大致知道了自己后面需要做的。毕竟刚刚开始，后面自己会学着慢慢的增加一些功能。
+    
+    </summary>
+    
+    
+      <category term="废话" scheme="http://yijiu.ren/tags/%E5%BA%9F%E8%AF%9D/"/>
+    
+  </entry>
+  
+</feed>
